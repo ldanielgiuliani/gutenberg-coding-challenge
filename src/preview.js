@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { __, sprintf } from '@wordpress/i18n';
+import { __, _n, sprintf } from '@wordpress/i18n';
 import { removep } from '@wordpress/autop';
 import { decodeEntities } from '@wordpress/html-entities';
 
@@ -41,8 +41,10 @@ export default function Preview( { countryCode, relatedPosts } ) {
 					{ hasRelatedPosts
 						? sprintf(
 								// translators: %d: Total Related Posts
-								__(
+								_n(
+									'There is %d related post:',
 									'There are %d related posts:',
+									relatedPosts.length,
 									'xwp-country-card'
 								),
 								relatedPosts.length
