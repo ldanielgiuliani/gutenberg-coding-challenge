@@ -24,25 +24,6 @@ function block_init() {
 add_action( 'init', __NAMESPACE__ . '\\block_init' );
 
 /**
- * Remove emoji CDN hostname from DNS prefetching hints.
- *
- * @param array  $urls          URLs to print for resource hints.
- * @param string $relation_type The relation type the URLs are printed for.
- *
- * @return array Difference between the two arrays.
- */
-function remove_emoji_dns_prefetch( $urls, $relation_type ) {
-	if ( 'dns-prefetch' === $relation_type ) {
-		/** This filter is documented in wp-includes/formatting.php */
-		$emoji_svg_url = apply_filters( 'emoji_svg_url', 'https://s.w.org/images/core/emoji/2/svg/' );
-
-		$urls = array_diff( $urls, [ $emoji_svg_url ] );
-	}
-
-	return $urls;
-}
-
-/**
  * Set custom length for excerpt
  *
  * @return int maximum number of words
