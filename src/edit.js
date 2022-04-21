@@ -12,6 +12,7 @@ import {
 import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import apiFetch from '@wordpress/api-fetch';
+import { select } from '@wordpress/data';
 
 /**
  * Internal dependencies
@@ -22,13 +23,12 @@ import Preview from './preview';
 import './editor.scss';
 
 export default function Edit( { attributes, setAttributes } ) {
+	const postId = select( 'core/editor' ).getCurrentPostId();
 	const { countryCode, relatedPosts } = attributes;
 	const options = Object.keys( countries ).map( ( code ) => ( {
 		value: code,
 		label: `${ getEmojiFlag( code ) } ${ countries[ code ] } — ${ code }`,
 	} ) );
-
-	useEffect( () => [ countryCode ] );
 
 	const handleChangeCountry = () => {
 		setAttributes( {
@@ -46,8 +46,6 @@ export default function Edit( { attributes, setAttributes } ) {
 	};
 
 	useEffect( () => {
-		const postId = window.location.href.match( /post=([\d]+)/ )[ 1 ];
-
 		apiFetch( {
 			path: `/wp/v2/posts?search=${ countries[ countryCode ] }&exclude=${ postId }`,
 		} )
@@ -67,7 +65,7 @@ export default function Edit( { attributes, setAttributes } ) {
 					`${ error.message } Status: ${ error.data.status }`
 				);
 			} );
-	}, [ countryCode, setAttributes ] );
+	}, [ postId, countryCode, setAttributes ] );
 
 	return (
 		<div { ...useBlockProps() }>
