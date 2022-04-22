@@ -8,6 +8,7 @@
 		"import/order": [ "error", { "groups": [ "builtin", [ "external", "unknown" ], "internal", "parent", "sibling", "index" ] } ],
 		"jsdoc/check-indentation": "error",
 		"@wordpress/dependency-group": "error",
-		"@wordpress/react-no-unsafe-timeout": "error"
+		"@wordpress/react-no-unsafe-timeout": "error",
+		"@wordpress/i18n-text-domain": [ "error", { "allowedTextDomain":  "xwp-country-card" } ]
 	}
 }
